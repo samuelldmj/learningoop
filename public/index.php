@@ -11,11 +11,15 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 // require_once __DIR__ .  "/../app/PaymentGateway/paddle/CustomerProfile.php";
 // require_once __DIR__ . "/../app/PaymentGateway/stripe/Transaction.php";
 
-spl_autoload_register(function ($class) {
-    //using the namespace as our path
-    $file = __DIR__ . "/../" . lcfirst(str_replace('\\', '/', $class)) . '.php';
-    require $file;
-});
+// spl_autoload_register(function ($class) {
+//     //using the namespace as our path
+//     $file = __DIR__ . "/../" . lcfirst(str_replace('\\', '/', $class)) . '.php';
+//     require $file;
+// });
+
+require_once __DIR__ . "/../vendor/autoload.php";
+// echo "<br>";
+// echo __DIR__ . "/../vendor/autoload.php";
 
 // use App\PaymentGateway\Stripe\Transaction as StripeTransaction;
 use App\PaymentGateway\Paddle\Transaction;
@@ -23,5 +27,8 @@ use App\PaymentGateway\Paddle\Transaction;
 // $stripetransaction = new StripeTransaction;
 $paddletransaction = new Transaction;
 var_dump($paddletransaction);
+
+$id = new \Ramsey\Uuid\UuidFactory();
+echo $id->uuid4();
 
 
