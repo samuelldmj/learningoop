@@ -3,20 +3,15 @@
 /* 
 i moved out of the current directory to the parent directory, this is so because the file is being loaded in the pulic directory,
 inside the index file */
-require_once "../Transaction.php";
-require_once "../Constructor.php";
-require_once "../PaymentProfile.php";
-require_once "../Customer.php";
+require_once "../PaymentGateway/paddle/Transaction.php";
+require_once "../PaymentGateway/paddle/CustomerProfile.php";
+require_once "../PaymentGateway/stripe/Transaction.php";
 
-// $transaction = (new Transaction(100, 'coffee'))->
-//     // $transaction->amount = 25;
-//     addTax(8)->applyDiscount(10)->getAmount() . "<br>";
-// var_dump($transaction);
+use PaymentGateway\Stripe\Transaction as StripeTransaction;
+use PaymentGateway\Paddle\Transaction;
 
-// $transaction1 = (new Transaction(20, 'tea'))->addTax(1)->getAmount();
-// var_dump($transaction1);
+$stripetransaction = new Transaction;
+$paddletransaction = new StripeTransaction;
+var_dump($paddletransaction, $stripetransaction);
 
 
-$transaction = new Trans(5, 'cake');
-
-echo $transaction->customer?->paymentprofile?->id;
