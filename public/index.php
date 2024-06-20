@@ -1,17 +1,27 @@
 <?php
 
 /* 
-i moved out of the current directory to the parent directory, this is so because the file is being loaded in the pulic directory,
-inside the index file */
-require_once "../PaymentGateway/paddle/Transaction.php";
-require_once "../PaymentGateway/paddle/CustomerProfile.php";
-require_once "../PaymentGateway/stripe/Transaction.php";
+The purpose of this is to enable this file load the included file. so to behave like you are running the script in the required or imported file you have to concantenate the current directory which you want to load with the other directory from which it is called, included or required.
+echo __DIR__ = C:\xampp\htdocs\learningoop\public, public is removed because we moved one directory up as a result of "/../" to learningoop
+the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\paddle
+*/
+// below directory same as C:\xampp\htdocs\learningoop\app\PaymentGateway\paddle
+// require_once __DIR__ . "/../app/PaymentGateway/paddle/Transaction.php";
+// require_once __DIR__ .  "/../app/Notification/Email.php";
+// require_once __DIR__ .  "/../app/PaymentGateway/paddle/CustomerProfile.php";
+// require_once __DIR__ . "/../app/PaymentGateway/stripe/Transaction.php";
 
-use PaymentGateway\Stripe\Transaction as StripeTransaction;
-use PaymentGateway\Paddle\Transaction;
+spl_autoload_register(function ($class) {
+    //using the namespace as our path
+    $file = __DIR__ . "/../" . lcfirst(str_replace('\\', '/', $class)) . '.php';
+    require $file;
+});
 
-$stripetransaction = new Transaction;
-$paddletransaction = new StripeTransaction;
-var_dump($paddletransaction, $stripetransaction);
+// use App\PaymentGateway\Stripe\Transaction as StripeTransaction;
+use App\PaymentGateway\Paddle\Transaction;
+
+// $stripetransaction = new StripeTransaction;
+$paddletransaction = new Transaction;
+var_dump($paddletransaction);
 
 
