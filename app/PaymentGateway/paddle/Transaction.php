@@ -4,31 +4,24 @@ declare(strict_types=1);
 
 namespace App\PaymentGateway\Paddle;
 
-use App\Enums\Status;
-use Exception;
+// use App\Enums\Status;
+// use Exception;
 
 class Transaction
 {
 
 
-
-    private string $status;
-
-    public function __construct()
+    public static int $count = 0;
+    public function __construct(public float $amount, public string $description)
     {
         // var_dump(new CustomerProfile);
-        $this->setStatus(Status::PENDING);
+
+
+   
     }
 
-    public function setStatus(string $status): self
+    public function process()
     {
-        if (!isset(Status::ALL_STATUSES[$status])) {
-            throw new \InvalidArgumentException('Invalid status');
-        }
-
-        $this->status = $status;
-        return $this;
-        
-
+      
     }
 }
