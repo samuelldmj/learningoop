@@ -22,13 +22,18 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // echo __DIR__ . "/../vendor/autoload.php";
 
 // use App\PaymentGateway\Stripe\Transaction as StripeTransaction;
+
+use App\Enums\Status;
 use App\PaymentGateway\Paddle\Transaction;
 
 // $stripetransaction = new StripeTransaction;
 $paddletransaction = new Transaction;
-var_dump($paddletransaction);
+// var_dump($paddletransaction);
 
-$id = new \Ramsey\Uuid\UuidFactory();
-echo $id->uuid4();
+// $id = new \Ramsey\Uuid\UuidFactory();
+// echo $id->uuid4();
+
+var_dump($paddletransaction->setStatus(Status::PAID));
+
 
 
