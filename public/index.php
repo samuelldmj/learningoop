@@ -27,8 +27,18 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use App\PaymentGateway\Paddle\Transaction;
 
 // $stripetransaction = new StripeTransaction;
-$paddletransaction = new Transaction(15, 'Coffee');
-// var_dump($paddletransaction);
+$paddletransaction = new Transaction(15);
+$paddletransaction->CopyFrom(new Transaction(100));
+
+
+// echo $paddletransaction->process();
+//accessing a private property
+// echo $paddletransaction->amount;
+
+//using reflection API to bypass the private modified property
+// $reflectionProperty = new ReflectionProperty(Transaction::class, 'amount');
+// $reflectionProperty->setAccessible(true);
+// var_dump($reflectionProperty->getValue($paddletransaction));
 
 // $id = new \Ramsey\Uuid\UuidFactory();
 // echo $id->uuid4();
@@ -36,7 +46,7 @@ $paddletransaction = new Transaction(15, 'Coffee');
 // var_dump($paddletransaction->setStatus(Status::PAID));
 
 //static
-echo $paddletransaction::$count;
+// echo $paddletransaction::$count;
 
 
 
