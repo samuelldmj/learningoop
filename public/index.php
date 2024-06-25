@@ -48,17 +48,30 @@ require_once __DIR__ . "/../vendor/autoload.php";
 //static
 // echo $paddletransaction::$count;
 
-use App\Toaster;
-use App\ToasterPro;
+// use App\Toaster;
+// use App\ToasterPro;
 
-$toaster = new ToasterPro();
-$toaster->addslice('bread');
-$toaster->addslice('bread');
-$toaster->addslice('bread');
-$toaster->toast();
+// $toaster = new ToasterPro();
+// $toaster->addslice('bread');
+// $toaster->addslice('bread');
+// $toaster->addslice('bread');
+// $toaster->toast();
 
 
+use App\Text;
+use App\Radio;
+use App\Checkbox;
 
+//Abstract class
+$fields = [
+    new Text('Text'),
+    new Checkbox('checkbox'),
+    new Radio('Radio')
+];
+
+foreach ($fields as $field) {
+    echo $field->render() . "<br>";
+}
 
 
 
