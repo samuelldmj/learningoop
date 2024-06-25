@@ -24,11 +24,11 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // use App\PaymentGateway\Stripe\Transaction as StripeTransaction;
 
 // use App\Enums\Status;
-use App\PaymentGateway\Paddle\Transaction;
+// use App\PaymentGateway\Paddle\Transaction;
 
 // $stripetransaction = new StripeTransaction;
-$paddletransaction = new Transaction(15);
-$paddletransaction->CopyFrom(new Transaction(100));
+// $paddletransaction = new Transaction(15);
+// $paddletransaction->CopyFrom(new Transaction(100));
 
 
 // echo $paddletransaction->process();
@@ -47,6 +47,15 @@ $paddletransaction->CopyFrom(new Transaction(100));
 
 //static
 // echo $paddletransaction::$count;
+
+use App\Toaster;
+use App\ToasterPro;
+
+$toaster = new ToasterPro();
+$toaster->addslice('bread');
+$toaster->addslice('bread');
+$toaster->addslice('bread');
+$toaster->toast();
 
 
 
