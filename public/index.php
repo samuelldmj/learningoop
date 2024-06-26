@@ -92,7 +92,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 
 //Magic methods
-use App\Invoice;
+
+
+// use App\Invoice;
 //NB: amount here is equivalent to $name in the set, get, isset and unset
 // $invoice = new Invoice();
 // $invoice->amount = 15;
@@ -105,6 +107,16 @@ use App\Invoice;
 // var_dump(isset($invoice->amount));
 
 
+//late static binding
+use App\ClassA;
+use App\ClassB;
 
+// $a = new ClassA;
+// $b = new ClassB;
 
+// echo $a->getName() . PHP_EOL;
+// echo $b->getName();
+
+echo ClassA::getName() . PHP_EOL;
+echo ClassB::getName();
 
