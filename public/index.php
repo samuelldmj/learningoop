@@ -61,9 +61,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 
 //Abstract class
-use App\Text;
-use App\Radio;
-use App\Checkbox;
+// use App\Text;
+// use App\Radio;
+// use App\Checkbox;
 
 
 // $fields = [
@@ -78,17 +78,32 @@ use App\Checkbox;
 
 
 //INTERFACE
-use App\CollectionAgency;
-use App\DebtCollectionService;
-use App\Rocky;
+// use App\CollectionAgency;
+// use App\DebtCollectionService;
+// use App\Rocky;
 
 // $collector = new CollectionAgency;
 // echo $collector->collect(100);
 
-$service = new DebtCollectionService;
-$service->collectDebt(new CollectionAgency);
-echo  PHP_EOL;
-$service->collectDebt(new Rocky);
+// $service = new DebtCollectionService;
+// $service->collectDebt(new CollectionAgency);
+// echo  PHP_EOL;
+// $service->collectDebt(new Rocky);
+
+
+//Magic methods
+use App\Invoice;
+//NB: amount here is equivalent to $name in the set, get, isset and unset
+// $invoice = new Invoice();
+// $invoice->amount = 15;
+// echo $invoice->amount;
+
+// $invoice->amount = 15;
+
+// var_dump(isset($invoice->amount));
+// unset($invoice->amount);
+// var_dump(isset($invoice->amount));
+
 
 
 
