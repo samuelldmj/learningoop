@@ -58,20 +58,37 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // $toaster->toast();
 
 
+
+
+//Abstract class
 use App\Text;
 use App\Radio;
 use App\Checkbox;
 
-//Abstract class
-$fields = [
-    new Text('Text'),
-    new Checkbox('checkbox'),
-    new Radio('Radio')
-];
 
-foreach ($fields as $field) {
-    echo $field->render() . "<br>";
-}
+// $fields = [
+//     new Text('Text'),
+//     new Checkbox('checkbox'),
+//     new Radio('Radio')
+// ];
+
+// foreach ($fields as $field) {
+//     echo $field->render() . "<br>";
+// }
+
+
+//INTERFACE
+use App\CollectionAgency;
+use App\DebtCollectionService;
+use App\Rocky;
+
+// $collector = new CollectionAgency;
+// echo $collector->collect(100);
+
+$service = new DebtCollectionService;
+$service->collectDebt(new CollectionAgency);
+echo  PHP_EOL;
+$service->collectDebt(new Rocky);
 
 
 
