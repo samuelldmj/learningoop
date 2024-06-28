@@ -17,7 +17,7 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 //     require $file;
 // });
 
-
+use App\Invoice;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 // echo "<br>";
@@ -125,23 +125,43 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 //Traits
 
-use App\AllInOneMaker;
-use App\CappuccinoMaker;
-use App\CoffeeMaker;
-use App\LatteMaker;
+// use App\AllInOneMaker;
+// use App\CappuccinoMaker;
+// use App\CoffeeMaker;
+// use App\LatteMaker;
 
-$coffeeMaker = new CoffeeMaker;
-$coffeeMaker->makeCoffee();
+// $coffeeMaker = new CoffeeMaker;
+// $coffeeMaker->makeCoffee();
 
-$latteMaker = new LatteMaker();
-$latteMaker->makeCoffee();
-$latteMaker->makeLatte();
+// $latteMaker = new LatteMaker();
+// $latteMaker->makeCoffee();
+// $latteMaker->makeLatte();
 
-$cappucino = new CappuccinoMaker();
-$cappucino->makeCoffee();
-$cappucino->makeCappucino();
+// $cappucino = new CappuccinoMaker();
+// $cappucino->makeCoffee();
+// $cappucino->makeCappucino();
 
-$allcoffee = new AllInOneMaker();
-$allcoffee->makeCoffee();
-$allcoffee->makeLatte();
-$allcoffee->makeCappucino();
+// $allcoffee = new AllInOneMaker();
+// $allcoffee->makeCoffee();
+// $allcoffee->makeLatte();
+// $allcoffee->makeCappucino();
+
+//ANONYMOUS CLASS.
+// $obj = new class
+// {
+// };
+// var_dump($obj);
+
+//Variable Storage & Object Comparison - Zend Value (zval) 
+// $invoice1 = new Invoice();
+$invoice2 = new Invoice();
+
+$invoice1 = clone $invoice2;
+
+// echo $invoice1 == $invoice2 . PHP_EOL;
+// var_dump($invoice1 == $invoice2);
+
+// echo $invoice1 === $invoice2 . PHP_EOL;
+var_dump($invoice1 === $invoice2);
+
+var_dump($invoice1, $invoice2, Invoice::create());
