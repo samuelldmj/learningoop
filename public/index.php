@@ -17,6 +17,8 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 //     require $file;
 // });
 
+
+
 require_once __DIR__ . "/../vendor/autoload.php";
 // echo "<br>";
 // echo __DIR__ . "/../vendor/autoload.php";
@@ -108,8 +110,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 
 //late static binding
-use App\ClassA;
-use App\ClassB;
+// use App\ClassA;
+// use App\ClassB;
 
 // $a = new ClassA;
 // $b = new ClassB;
@@ -117,6 +119,29 @@ use App\ClassB;
 // echo $a->getName() . PHP_EOL;
 // echo $b->getName();
 
-echo ClassA::getName() . PHP_EOL;
-echo ClassB::getName();
+// echo ClassA::getName() . PHP_EOL;
+// echo ClassB::getName();
 
+
+//Traits
+
+use App\AllInOneMaker;
+use App\CappuccinoMaker;
+use App\CoffeeMaker;
+use App\LatteMaker;
+
+$coffeeMaker = new CoffeeMaker;
+$coffeeMaker->makeCoffee();
+
+$latteMaker = new LatteMaker();
+$latteMaker->makeCoffee();
+$latteMaker->makeLatte();
+
+$cappucino = new CappuccinoMaker();
+$cappucino->makeCoffee();
+$cappucino->makeCappucino();
+
+$allcoffee = new AllInOneMaker();
+$allcoffee->makeCoffee();
+$allcoffee->makeLatte();
+$allcoffee->makeCappucino();
