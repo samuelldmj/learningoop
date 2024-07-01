@@ -17,7 +17,7 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 //     require $file;
 // });
 
-use App\Invoice;
+
 
 require_once __DIR__ . "/../vendor/autoload.php";
 // echo "<br>";
@@ -153,15 +153,39 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // var_dump($obj);
 
 //Variable Storage & Object Comparison - Zend Value (zval) 
-// $invoice1 = new Invoice();
-$invoice2 = new Invoice();
+// use App\Invoice;
 
-$invoice1 = clone $invoice2;
+// $invoice1 = new Invoice();
+// $invoice2 = new Invoice();
+
+// $invoice1 = clone $invoice2;
 
 // echo $invoice1 == $invoice2 . PHP_EOL;
 // var_dump($invoice1 == $invoice2);
 
 // echo $invoice1 === $invoice2 . PHP_EOL;
-var_dump($invoice1 === $invoice2);
+// var_dump($invoice1 === $invoice2);
 
-var_dump($invoice1, $invoice2, Invoice::create());
+// var_dump($invoice1, $invoice2, Invoice::create());
+
+//SERIALIZATION
+use App\Invoice;
+
+$invoice1 = new Invoice(25, 'coffe', "12345687");
+// echo serialize(false) . PHP_EOL;
+// echo serialize(1) . PHP_EOL;
+// echo serialize(2.5) . PHP_EOL;
+// echo serialize('Hello world') . PHP_EOL;
+// echo serialize([1, 2, 3]) . PHP_EOL;
+// echo serialize(['a' => 1, 'b' => 5]) . PHP_EOL;
+
+$str = serialize($invoice1);
+
+// echo $str;
+$invoice2 = unserialize($str);
+print_r($invoice2);
+
+
+// echo $invoice1;
+
+
