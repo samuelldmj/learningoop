@@ -169,9 +169,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // var_dump($invoice1, $invoice2, Invoice::create());
 
 //SERIALIZATION
-use App\Invoice;
+// use App\Invoice;
 
-$invoice1 = new Invoice(25, 'coffe', "12345687");
+// $invoice1 = new Invoice(25, 'coffe', "12345687");
 // echo serialize(false) . PHP_EOL;
 // echo serialize(1) . PHP_EOL;
 // echo serialize(2.5) . PHP_EOL;
@@ -179,13 +179,26 @@ $invoice1 = new Invoice(25, 'coffe', "12345687");
 // echo serialize([1, 2, 3]) . PHP_EOL;
 // echo serialize(['a' => 1, 'b' => 5]) . PHP_EOL;
 
-$str = serialize($invoice1);
+// $str = serialize($invoice1);
 
-// echo $str;
-$invoice2 = unserialize($str);
-print_r($invoice2);
-
+// // echo $str;
+// $invoice2 = unserialize($str);
+// print_r($invoice2);
 
 // echo $invoice1;
 
 
+//ERROR EXCEPTION
+
+use App\Customer;
+use App\Invoice;
+
+
+
+$invoice = new Invoice(new Customer());
+
+try {
+    $invoice->process(-25);
+} catch (App\Exception\MissingBillingInfoException $e) {
+    echo $e->getMessage() . ' ' . $e->getLine() . ': ' . $e->getFile();
+}
