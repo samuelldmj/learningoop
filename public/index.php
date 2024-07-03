@@ -190,15 +190,31 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 //ERROR EXCEPTION
 
-use App\Customer;
+// use App\Customer;
+// use App\Invoice;
+
+
+
+// $invoice = new Invoice(new Customer());
+
+// try {
+//     $invoice->process(-25);
+// } catch (App\Exception\MissingBillingInfoException $e) {
+//     echo $e->getMessage() . ' ' . $e->getLine() . ': ' . $e->getFile();
+// }
+
+
+//iterating over object
 use App\Invoice;
+use App\InvoiceCollection;
 
+// foreach (new Invoice(25) as $key => $value) {
+//     echo $key . ' = ' .  $value . PHP_EOL;
+// }
 
+$invoiceCollection = new InvoiceCollection([new Invoice(25), new Invoice(18), new Invoice(28)]);
+foreach ($invoiceCollection as $invoice) {
+    // var_dump($invoice);
 
-$invoice = new Invoice(new Customer());
-
-try {
-    $invoice->process(-25);
-} catch (App\Exception\MissingBillingInfoException $e) {
-    echo $e->getMessage() . ' ' . $e->getLine() . ': ' . $e->getFile();
+    echo $invoice->id . '-' . $invoice->amount . PHP_EOL;
 }
