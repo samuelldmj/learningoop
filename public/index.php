@@ -205,16 +205,43 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 
 //iterating over object
-use App\Invoice;
-use App\InvoiceCollection;
+// use App\Invoice;
+// use App\InvoiceCollection;
 
 // foreach (new Invoice(25) as $key => $value) {
 //     echo $key . ' = ' .  $value . PHP_EOL;
 // }
 
-$invoiceCollection = new InvoiceCollection([new Invoice(25), new Invoice(18), new Invoice(28)]);
-foreach ($invoiceCollection as $invoice) {
-    // var_dump($invoice);
+// $invoiceCollection = new InvoiceCollection([new Invoice(25), new Invoice(18), new Invoice(28)]);
+// foreach ($invoiceCollection as $invoice) {
+//     // var_dump($invoice);
 
-    echo $invoice->id . '-' . $invoice->amount . PHP_EOL;
+//     echo $invoice->id . '-' . $invoice->amount . PHP_EOL;
+// }
+
+
+//SuperGlobals
+use App\Router;
+//ROUTER
+$router = new Router();
+$router->register('/', [App\Classes\Index::class, 'index'])
+    ->register('/invoices', [App\Classes\Invoices::class, 'invoices'])
+    ->register('/invoices/create', [App\Classes\Invoices::class, 'create']);
+
+try {
+    //this make the uri to work, if valid.
+    echo $router->resolve($_SERVER['REQUEST_URI']);
+} catch (\App\Exceptions\RouteNotFoundException $e) {
+    echo $e->getMessage();
 }
+
+// $router->register('/invoices', function () {
+//     echo 'Invoices';
+// });
+
+// echo $router->resolve($_SERVER['REQUEST_URI']);
+
+
+// $router->register('/invoices', function () {
+//     echo 'Invoices';
+// });
