@@ -221,19 +221,19 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 
 //SuperGlobals
-use App\Router;
+// use App\Router;
 //ROUTER
-$router = new Router();
-$router->register('/', [App\Classes\Index::class, 'index'])
-    ->register('/invoices', [App\Classes\Invoices::class, 'invoices'])
-    ->register('/invoices/create', [App\Classes\Invoices::class, 'create']);
+// $router = new Router();
+// $router->register('/', [App\Classes\Index::class, 'index'])
+//     ->register('/invoices', [App\Classes\Invoices::class, 'invoices'])
+//     ->register('/invoices/create', [App\Classes\Invoices::class, 'create']);
 
-try {
-    //this make the uri to work, if valid.
-    echo $router->resolve($_SERVER['REQUEST_URI']);
-} catch (\App\Exceptions\RouteNotFoundException $e) {
-    echo $e->getMessage();
-}
+// try {
+//     //this make the uri to work, if valid.
+//     echo $router->resolve($_SERVER['REQUEST_URI']);
+// } catch (\App\Exceptions\RouteNotFoundException $e) {
+//     echo $e->getMessage();
+// }
 
 // $router->register('/invoices', function () {
 //     echo 'Invoices';
@@ -245,3 +245,18 @@ try {
 // $router->register('/invoices', function () {
 //     echo 'Invoices';
 // });
+
+
+use App\Router;
+
+$router = new Router();
+$router->get('/', [App\Classes\Index::class, 'index'])
+    ->get('/invoices', [App\Classes\Invoices::class, 'invoices'])
+    ->get('/invoices/create', [App\Classes\Invoices::class, 'create'])
+    ->post('/invoices/create', [\App\Classes\Invoices::class, 'store']);
+
+try {
+    echo $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
+} catch (\App\Exceptions\RouteNotFoundException $e) {
+    echo $e->getMessage();
+}
