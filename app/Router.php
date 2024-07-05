@@ -25,9 +25,9 @@ class Router
         }
 
         if (is_callable($action)) {
-            ob_start(); // Start output buffering
+          
             return call_user_func($action);
-            return ob_get_clean(); // Get the buffered output and clean the buffer
+           
         }
         if (is_array($action)) {
             [$class, $method] = $action;
@@ -40,5 +40,7 @@ class Router
                 }
             }
         }
+
+        throw new RouteNotFoundException();
     }
 }
