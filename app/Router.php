@@ -30,6 +30,7 @@ class Router
         return $this->routes;
     }
 
+    //this make it possible to retrieve the uri and methods. it should be called on the object pointing to the uri's
     public function resolve(string $requestUri, string $requestMethod)
     {
         $route = explode('?', $requestUri)[0];
@@ -42,7 +43,7 @@ class Router
         if (is_callable($action)) {
           
             return call_user_func($action);
-           
+         
         }
         if (is_array($action)) {
             [$class, $method] = $action;
