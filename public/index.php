@@ -249,8 +249,13 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 require_once __DIR__ . "/../vendor/autoload.php";
 use App\Router;
 
+define('STORAGE_PATH', __DIR__ . "/../resources");
+
+// echo __DIR__;
+
 $router = new Router();
 $router->get('/', [App\Classes\Index::class, 'index'])
+    ->post('/upload', [\App\Classes\Index::class, 'upload'])
     ->get('/invoices', [App\Classes\Invoices::class, 'invoices'])
     ->get('/invoices/create', [App\Classes\Invoices::class, 'create'])
     ->post('/invoices/create', [App\Classes\Invoices::class, 'store']);

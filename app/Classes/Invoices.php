@@ -18,7 +18,7 @@ class Invoices
                     <label>Amount:</label>
                     <input type="text" name="amount"/>
                     <button type="submit" name="submit">Submit</button>
-                </form>';
+            </form>';
     }
 
     public function store()
