@@ -2,23 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Classes;
+namespace App\Controllers;
 
-class Invoices
+use App\View;
+
+class InvoicesController
 {
-    public function invoices(): string
+    public function invoices(): View
     {
-        return 'Invoices Receipt';
+        return  View::make('/invoices/invoice');
     }
 
-    public function create(): string
+    public function create(): View
     {
-        return
-            '<form action="/invoices/create" method="post">
-                    <label>Amount:</label>
-                    <input type="text" name="amount"/>
-                    <button type="submit" name="submit">Submit</button>
-            </form>';
+        return  View::make('/invoices/create');
     }
 
     public function store()
@@ -38,7 +35,6 @@ class Invoices
 
         // var_dump($amount);
 
-        
-    }
 
+    }
 }

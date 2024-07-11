@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Classes;
+namespace App\Controllers;
 
-class Index
+use App\View;
+
+class IndexController
 {
-    public function index(): string
+    public function index(): View
     {
-        return '
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" >
-            <button type="submit" name="submit">UPLOAD</button>
-        </form> 
-        ';
+        //index here comes from => VIEWS_PATH => C:\xampp\htdocs\learningoop\resources\views
+        return  View::make('index', ['foo' => 'bars']);
     }
 
     public function upload()
@@ -31,8 +29,6 @@ class Index
         move_uploaded_file($_FILES['image']['tmp_name'], $filePath);
 
         var_dump(pathinfo($filePath));
-
-
 
 
         echo "</pre>";

@@ -223,9 +223,9 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 // use App\Router;
 //ROUTER
 // $router = new Router();
-// $router->register('/', [App\Classes\Index::class, 'index'])
-//     ->register('/invoices', [App\Classes\Invoices::class, 'invoices'])
-//     ->register('/invoices/create', [App\Classes\Invoices::class, 'create']);
+// $router->register('/', [App\Controllers\Index::class, 'index'])
+//     ->register('/invoices', [App\Controllers\Invoices::class, 'invoices'])
+//     ->register('/invoices/create', [App\Controllers\Invoices::class, 'create']);
 
 // try {
 //     //this make the uri to work, if valid.
@@ -249,16 +249,20 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 require_once __DIR__ . "/../vendor/autoload.php";
 use App\Router;
 
+//C:\xampp\htdocs\learningoop\resources
 define('STORAGE_PATH', __DIR__ . "/../resources");
+
+//C:\xampp\htdocs\learningoop\resources\views
+define('VIEWS_PATH', __DIR__ . "/../resources/views");
 
 // echo __DIR__;
 
 $router = new Router();
-$router->get('/', [App\Classes\Index::class, 'index'])
-    ->post('/upload', [\App\Classes\Index::class, 'upload'])
-    ->get('/invoices', [App\Classes\Invoices::class, 'invoices'])
-    ->get('/invoices/create', [App\Classes\Invoices::class, 'create'])
-    ->post('/invoices/create', [App\Classes\Invoices::class, 'store']);
+$router->get('/', [App\Controllers\IndexController::class, 'index'])
+    ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
+    ->get('/invoices', [App\Controllers\InvoicesController::class, 'invoices'])
+    ->get('/invoices/create', [App\Controllers\InvoicesController::class, 'create'])
+    ->post('/invoices/create', [App\Controllers\InvoicesController::class, 'store']);
 
 try {
     echo $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
