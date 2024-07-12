@@ -10,6 +10,10 @@ class View
 {
 
 
+
+
+
+
     public function __construct(protected string $view, protected array $params = [])
     {
     }
