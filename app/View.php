@@ -9,11 +9,6 @@ use App\Exceptions\ViewNotFoundException;
 class View
 {
 
-
-
-
-
-
     public function __construct(protected string $view, protected array $params = [])
     {
     }

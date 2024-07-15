@@ -257,6 +257,10 @@ define('VIEWS_PATH', __DIR__ . "/../resources/views");
 
 // echo __DIR__;
 
+//making the .env work by putting it in the entry point of my app
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
 $router = new Router();
 $router->get('/', [App\Controllers\IndexController::class, 'index'])
     ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
