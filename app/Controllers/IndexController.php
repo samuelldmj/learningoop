@@ -5,12 +5,49 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\View;
+use PDO;
 
 class IndexController
 {
     public function index(): View
     {
+
         //index here comes from => VIEWS_PATH => C:\xampp\htdocs\learningoop\resources\views
+        $db = new PDO('mysql:host=localhost; dbname=comp_db', 'root', '');
+        $email = 'danarg@hotemail.com';
+        $fullname = 'Cot Sam';
+        $is_active = 1;
+        $created_at = date('Y-m-d H:m:i', strtotime('7/11/2024 11:47am'));
+
+
+
+        // $query = 'SELECT * FROM users';
+        // $stmt = $db->query($query);
+        // // var_dump($stmt->fetchAll(PDO::FETCH_OBJ));
+        // var_dump($stmt->fetchAll());
+
+        // //using placeholder to prevent sql injection and inserting into db
+        // $query = 'INSERT INTO users (email, full_name, is_active, created_at) VALUES (?,?,?,?)';
+        // $stmt = $db->prepare($query);
+        // $stmt->execute([$email, $fullname, $is_active, $created_at]);
+
+
+        //using name parameters to prevent sql injection and inserting into db
+        $query = 'INSERT INTO users (email, full_name, is_active, created_at) VALUES (:email, :full_name, :is_active, :created_at)';
+        $stmt = $db->prepare($query);
+        $stmt->execute(['email' => $email, 'full_name' => $fullname, 'is_active' => $is_active, 'created_at' =>  $created_at]);
+
+        //retrieving from db;
+        $id = (int) $db->lastInsertId();
+        $queryFromDB = 'SELECT * FROM users WHERE id = ' . $id;
+        $stmtDb = $db->query($queryFromDB);
+        echo "<pre>";
+
+        var_dump($stmtDb->fetchAll());
+
+        echo "</pre>";
+
+
         return  View::make('index', ['foo' => 'bars']);
     }
 
