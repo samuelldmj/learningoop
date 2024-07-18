@@ -247,6 +247,9 @@ the concatenation results into C:\xampp\htdocs\learningoop\app\PaymentGateway\pa
 
 
 require_once __DIR__ . "/../vendor/autoload.php";
+
+use App\App;
+use App\Config;
 use App\Router;
 
 //C:\xampp\htdocs\learningoop\resources
@@ -262,14 +265,16 @@ $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 $router = new Router();
-$router->get('/', [App\Controllers\IndexController::class, 'index'])
+$router->get('/', [\App\Controllers\IndexController::class, 'index'])
     ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
-    ->get('/invoices', [App\Controllers\InvoicesController::class, 'invoices'])
-    ->get('/invoices/create', [App\Controllers\InvoicesController::class, 'create'])
-    ->post('/invoices/create', [App\Controllers\InvoicesController::class, 'store']);
+    ->get('/invoices', [\App\Controllers\InvoicesController::class, 'invoices'])
+    ->get('/invoices/create', [\App\Controllers\InvoicesController::class, 'create'])
+    ->post('/invoices/create', [\App\Controllers\InvoicesController::class, 'store']);
 
-try {
-    echo $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
-} catch (\App\Exceptions\RouteNotFoundException $e) {
-    echo $e->getMessage();
-}
+
+//running the route;
+(new App(
+    $router,
+    ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
+    new Config($_ENV)
+))->run();

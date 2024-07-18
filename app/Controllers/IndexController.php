@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\App;
+use App\Models\InvoiceModel;
+use App\Models\SignUpModel;
+use App\Models\UserModel;
 use App\View;
 use PDO;
 use PDOException;
@@ -17,13 +21,11 @@ class IndexController
         // var_dump($_ENV['DB_HOST']);
         // exit;
 
+        // //connecting to db;
+        // $db = App::db();
 
         //index here comes from => VIEWS_PATH => C:\xampp\htdocs\learningoop\resources\views
-        try {
-            $db = new PDO('mysql:host=localhost; dbname=comp_db', 'root', '');
-        } catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), (int) $e->getCode());
-        }
+
 
         // $email = 'danarg@hotemail.com';
         // $fullname = 'Cot Sam';
@@ -52,56 +54,30 @@ class IndexController
         // $stmtDb = $db->query($queryFromDB);
 
 
-        $email = 'bol@mail.com';
-        $name = 'Samo Taka';
-        $amount = 25;
-
-        try {
-
-            $db->beginTransaction();
-
-            $newUserStmt = $db->prepare('INSERT INTO users (email, full_name, is_active, created_at) VALUES (?, ?, 1, NOW()) ');
-
-            $newInvoiceStmt = $db->prepare('INSERT INTO invoices (amount, users_id) VALUES (?, ?)');
-
-            $newUserStmt->execute([$email, $name]);
-
-            $userId = (int) $db->lastInsertId();
-
-            $newInvoiceStmt->execute([$amount, $userId]);
-
-            $db->commit();
-        } catch (\Throwable $e) {
-            if ($db->inTransaction()) {
-                $db->rollBack();
-            }
-        }
-
-        $fetchStmt = $db->prepare('SELECT invoices.id as invoice_id, amount, users_id, full_name
-         FROM invoices INNER JOIN users on users_id = users.id WHERE email = ?');
-
-        $fetchStmt->execute([$email]);
-
-        echo "<pre>";
-
-        // var_dump($stmtDb->fetchAll());
-        var_dump($fetchStmt->fetch(PDO::FETCH_ASSOC));
-
-        echo "</pre>";
+        $email = 'kan@mail.com';
+        $name = 'kan Taka';
+        $amount = 77;
 
 
+        $userModel = new UserModel();
+        $invoiceModel = new InvoiceModel();
 
+        $invoiceId = (new SignUpModel($userModel, $invoiceModel))->register(
+                [
 
+                'full_name' => $name,
+                'email' => $email
+            ],
+            [
+                'amount' => $amount
+            ]
 
+        );
 
-
-
-
-
-
-
-
-        return  View::make('index', ['foo' => 'bars']);
+        return  View::make(
+            'index',
+            ['invoice' => $invoiceModel->find($invoiceId)]
+        );
     }
 
     public function upload()
