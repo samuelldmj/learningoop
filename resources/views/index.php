@@ -1,12 +1,3 @@
-<h1> <?php //echo $this->params['foo']; 
-        ?></h1>
-
-<!-- <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="image">
-    <button type="submit" name="submit">UPLOAD</button>
-</form> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +10,12 @@
 <body>
     Homepage
     <hr>
-    <?php echo 'Hello World';
-    exit ?>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit" name="submit">UPLOAD</button>
+    </form>
+
 
     <?php if (!empty($invoice)) : ?>
         Invoice ID: <?php echo $invoice['id']; ?> <br>

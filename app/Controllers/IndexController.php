@@ -54,8 +54,8 @@ class IndexController
         // $stmtDb = $db->query($queryFromDB);
 
 
-        $email = 'kan@mail.com';
-        $name = 'kan Taka';
+        $email = 'zok@mail.com';
+        $name = 'zok Tak';
         $amount = 77;
 
 
