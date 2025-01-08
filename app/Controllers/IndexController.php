@@ -54,9 +54,9 @@ class IndexController
         // $stmtDb = $db->query($queryFromDB);
 
 
-        $email = 'zok@mail.com';
-        $name = 'zok Tak';
-        $amount = 77;
+        $email = 'kob@mail.com';
+        $name = 'kob tak';
+        $amount = 79;
 
 
         $userModel = new UserModel();
