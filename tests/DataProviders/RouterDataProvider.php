@@ -1,11 +1,11 @@
 <?php
 
-namespace Test\DataProviders;
+namespace Tests\DataProviders;
 
 class RouterDataProvider
 {
-
-    public  function routeNotFoundCases(): array
+    // Make the method static
+    public static function routeNotFoundCases(): array
     {
         return [
             ['/users', 'put'],
@@ -15,3 +15,4 @@ class RouterDataProvider
         ];
     }
 }
+
