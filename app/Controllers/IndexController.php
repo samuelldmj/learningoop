@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\App;
+use App\Container;
 use App\Models\InvoiceModel;
 use App\Models\SignUpModel;
 use App\Models\UserModel;
+use App\Services\InvoiceServices;
 use App\View;
 use PDO;
 use PDOException;
 
 class IndexController
 {
-    public function index(): View
+
+    public function __construct(private InvoiceServices $invoiceServices)
+{
+
+}    public function index(): View
     {
 
         //making sure my db connection has loaded by the env
@@ -54,30 +60,36 @@ class IndexController
         // $stmtDb = $db->query($queryFromDB);
 
 
-        $email = 'kob@mail.com';
-        $name = 'kob tak';
-        $amount = 79;
+        // $email = 'kob@mail.com';
+        // $name = 'kob tak';
+        // $amount = 79;
 
 
-        $userModel = new UserModel();
-        $invoiceModel = new InvoiceModel();
+        // $userModel = new UserModel();
+        // $invoiceModel = new InvoiceModel();
 
-        $invoiceId = (new SignUpModel($userModel, $invoiceModel))->register(
-                [
+        // $invoiceId = (new SignUpModel($userModel, $invoiceModel))->register(
+        //         [
 
-                'full_name' => $name,
-                'email' => $email
-            ],
-            [
-                'amount' => $amount
-            ]
+        //         'full_name' => $name,
+        //         'email' => $email
+        //     ],
+        //     [
+        //         'amount' => $amount
+        //     ]
 
-        );
+        // );
 
-        return  View::make(
-            'index',
-            ['invoice' => $invoiceModel->find($invoiceId)]
-        );
+        // return  View::make(
+        //     'index',
+        //     ['invoice' => $invoiceModel->find($invoiceId)]
+        // );
+
+
+        // App::$container->get(InvoiceServices::class)->process([], 20);
+        $this->invoiceServices->process([], 20);
+
+        return View::make('index');
     }
 
     public function upload()

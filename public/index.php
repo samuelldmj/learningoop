@@ -250,6 +250,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use App\App;
 use App\Config;
+use App\Container;
 use App\Router;
 
 //C:\xampp\htdocs\learningoop\resources
@@ -264,7 +265,9 @@ define('VIEWS_PATH', __DIR__ . "/../resources/views");
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-$router = new Router();
+$container = new Container();
+
+$router = new Router($container);
 $router->get('/', [\App\Controllers\IndexController::class, 'index'])
     ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
     ->get('/invoices', [\App\Controllers\InvoicesController::class, 'invoices'])

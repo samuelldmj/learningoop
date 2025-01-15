@@ -6,6 +6,7 @@ declare(strict_types=1);
 // Define the namespace for the class
 namespace App;
 
+
 // Import the custom exception for handling undefined routes
 use App\Exceptions\RouteNotFoundException;
 
@@ -14,6 +15,10 @@ class Router
 {
     // Private property to store all routes
     private array $routes = [];
+
+    public function __construct(private Container $container){
+
+    }
 
     // Method to register a new route with any HTTP method
     public function register(string $requestMethod, string $route, callable|array $action): self
@@ -68,7 +73,8 @@ class Router
             // Check if the class exists
             if (class_exists($class)) {
                 // Instantiate the class
-                $class = new $class();
+                // $class = new $class();
+                $class = $this->container->get($class);
                 // Check if the method exists in the class
                 if (method_exists($class, $method)) {
                     // Call the method on the class instance
