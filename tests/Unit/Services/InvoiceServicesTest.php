@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Services;
 
 use App\Services\EmailService;
-use App\Services\GatewayService;
+use App\Services\PaymentGatewayService;
 use App\Services\InvoiceServices;
 use App\Services\SalesTaxService;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ class InvoiceServicesTest extends TestCase {
 
     //     $saleTaxServiceMock = $this->createMock(SalesTaxService::class);
     //     $emailServiceMock = $this->createMock(EmailService::class);
-    //     $gatewayServiceMock  = $this->createMock(GatewayService::class);
+    //     $PaymentpaymentGatewayService  = $this->createMock(PaymentGatewayService::class);
 
 
     //     $saleTaxServiceMock->calculate(25, []);
@@ -42,11 +42,11 @@ class InvoiceServicesTest extends TestCase {
 
         $saleTaxServiceMock = $this->createMock(SalesTaxService::class);
         $emailServiceMock = $this->createMock(EmailService::class);
-        $gatewayServiceMock  = $this->createMock(GatewayService::class);
+        $paymentGatewayService  = $this->createMock(PaymentGatewayService::class);
 
-        $gatewayServiceMock->method('charge')->willReturn(true);
+        $paymentGatewayService->method('charge')->willReturn(true);
 
-        $invoiceService = new InvoiceServices($saleTaxServiceMock, $gatewayServiceMock, $emailServiceMock);
+        $invoiceService = new InvoiceServices($saleTaxServiceMock, $paymentGatewayService, $emailServiceMock);
 
         $customer = ['name' => 'Samuel'];
         $amount = 200;
@@ -61,12 +61,12 @@ class InvoiceServicesTest extends TestCase {
 
         $saleTaxServiceMock = $this->createMock(SalesTaxService::class);
         $emailServiceMock = $this->createMock(EmailService::class);
-        $gatewayServiceMock  = $this->createMock(GatewayService::class);
+        $paymentGatewayService  = $this->createMock(PaymentGatewayService::class);
 
-        $gatewayServiceMock->method('charge')->willReturn(true);
+        $paymentGatewayService->method('charge')->willReturn(true);
         $emailServiceMock->expects($this->once())->method('send')->with(['name' => 'Samuel'], 'receipt');
 
-        $invoiceService = new InvoiceServices($saleTaxServiceMock, $gatewayServiceMock, $emailServiceMock);
+        $invoiceService = new InvoiceServices($saleTaxServiceMock, $paymentGatewayService, $emailServiceMock);
 
         $customer = ['name' => 'Samuel'];
         $amount = 200;

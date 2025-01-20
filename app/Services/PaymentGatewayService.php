@@ -3,7 +3,9 @@
 declare(strict_types=1);
 namespace App\Services;
 
-class GatewayService {
+use App\Services\Interface\PaymentGatewayServiceInterface;
+
+class PaymentGatewayService implements PaymentGatewayServiceInterface {
 
 
 

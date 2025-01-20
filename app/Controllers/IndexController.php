@@ -88,6 +88,7 @@ class IndexController
 
         // App::$container->get(InvoiceServices::class)->process([], 20);
         $this->invoiceServices->process([], 20);
+        // (new Container())->get(InvoiceServices::class)->process([], 20);
 
         return View::make('index');
     }

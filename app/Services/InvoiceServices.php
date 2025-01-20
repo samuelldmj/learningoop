@@ -7,7 +7,7 @@ class InvoiceServices {
 
     public function __construct(
         protected SalesTaxService $saleTaxService,
-        protected GatewayService $gatewayService,
+        protected PaymentGatewayService $paymentGatewayService,
         protected EmailService   $emailService
     )
     {  
@@ -19,7 +19,7 @@ class InvoiceServices {
 
         $tax = $this->saleTaxService->calculate($amount, $customer);
 
-        if(!$this->gatewayService->charge($customer, $amount, $tax)){
+        if(!$this->paymentGatewayService->charge($customer, $amount, $tax)){
             return false;
         }
 
