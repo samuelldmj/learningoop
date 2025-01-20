@@ -277,7 +277,9 @@ $router->get('/', [\App\Controllers\IndexController::class, 'index'])
 
 //running the route;
 (new App(
+    $container,
     $router,
-    ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
+    ['uri' => $_SERVER['REQUEST_URI'],
+    'method' => $_SERVER['REQUEST_METHOD']],
     new Config($_ENV)
 ))->run();

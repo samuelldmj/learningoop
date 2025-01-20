@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App;
 
 use App\Services\EmailService;
+use App\Services\Interface\PaymentGatewayServiceInterface;
 use App\Services\PaymentGatewayService;
 use App\Services\InvoiceServices;
 use App\Services\SalesTaxService;
+use App\Services\StripePayment;
 use PDO;
 use PDOException;
 
@@ -26,32 +28,14 @@ class App
      * @param array $request The request data (e.g., URI, method).
      * @param Config $config The configuration instance (includes DB settings).
      */
-    public function __construct(protected Router $router, protected array $request, protected Config $config)
+    public function __construct(protected Container $container,
+     protected Router $router,
+      protected array $request, protected Config $config)
     {
         // Initialize the DB connection using the configuration values
         static::$db = new DB($config->db ?? null);
+        $this->container->set(PaymentGatewayServiceInterface::class, StripePayment::class);
 
-        // Initialize the container (dependency injection container)
-        // static::$container = new Container;
-
-        // // Register InvoiceServices in the container with its dependencies.
-        // static::$container->set(InvoiceServices::class, function(Container $c) {
-        //     // Return a new InvoiceServices object, injecting its required dependencies.
-        //     return new InvoiceServices(
-        //         $c->get(SalesTaxService::class),  // Resolve SalesTaxService from the container
-        //         $c->get(PaymentGatewayService::class),  // Resolve PaymentGatewayService from the container
-        //         $c->get(EmailService::class)    // Resolve EmailService from the container
-        //     );
-        // });
-
-        // // Register SalesTaxService in the container using a simple closure to instantiate it
-        // static::$container->set(SalesTaxService::class, fn() => new SalesTaxService());
-
-        // // Register PaymentGatewayService in the container using a simple closure to instantiate it
-        // static::$container->set(PaymentGatewayService::class, fn() => new PaymentGatewayService());
-
-        // // Register EmailService in the container using a simple closure to instantiate it
-        // static::$container->set(EmailService::class, fn() => new EmailService());
     }
 
     /**

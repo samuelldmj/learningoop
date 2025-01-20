@@ -15,15 +15,13 @@ class Container implements ContainerInterface {
 
     public function get(string $id)
     {
-        // if (!$this->has($id)) {
-        //     throw new NotFoundException('Class ' . $id . ' has no binding');
-        // }
-        // $entry = $this->entries[$id];
-        // return $entry($this); 
 
         if($this->has($id)){
             $entry = $this->entries[$id];
-            return $entry($this);
+            if(is_callable($entry)){
+                return $entry($this);
+            }
+           $id = $entry;
         }
         return $this->resolve($id);
     }
