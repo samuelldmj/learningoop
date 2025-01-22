@@ -251,6 +251,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use App\App;
 use App\Config;
 use App\Container;
+use App\Controllers\GeneratorExampleController;
 use App\Router;
 
 //C:\xampp\htdocs\learningoop\resources
@@ -272,7 +273,8 @@ $router->get('/', [\App\Controllers\IndexController::class, 'index'])
     ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
     ->get('/invoices', [\App\Controllers\InvoicesController::class, 'invoices'])
     ->get('/invoices/create', [\App\Controllers\InvoicesController::class, 'create'])
-    ->post('/invoices/create', [\App\Controllers\InvoicesController::class, 'store']);
+    ->post('/invoices/create', [\App\Controllers\InvoicesController::class, 'store'])
+    ->get('/examples/generator', [GeneratorExampleController::class, 'index']);
 
 
 //running the route;
