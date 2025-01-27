@@ -252,6 +252,7 @@ use App\App;
 use App\Config;
 use App\Container;
 use App\Controllers\GeneratorExampleController;
+use App\Controllers\IndexController;
 use App\Router;
 
 //C:\xampp\htdocs\learningoop\resources
@@ -269,12 +270,24 @@ $dotenv->load();
 $container = new Container();
 
 $router = new Router($container);
-$router->get('/', [\App\Controllers\IndexController::class, 'index'])
-    ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
-    ->get('/invoices', [\App\Controllers\InvoicesController::class, 'invoices'])
-    ->get('/invoices/create', [\App\Controllers\InvoicesController::class, 'create'])
-    ->post('/invoices/create', [\App\Controllers\InvoicesController::class, 'store'])
-    ->get('/examples/generator', [GeneratorExampleController::class, 'index']);
+
+$router->registerRouteFromControllerAttributes(
+    [
+        IndexController::class,
+        GeneratorExampleController::class
+    ]
+    );
+
+echo "<pre>";
+print_r($router->routes());
+echo "</pre>";
+
+// $router->get('/', [\App\Controllers\IndexController::class, 'index'])
+//     ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
+//     ->get('/invoices', [\App\Controllers\InvoicesController::class, 'invoices'])
+//     ->get('/invoices/create', [\App\Controllers\InvoicesController::class, 'create'])
+//     ->post('/invoices/create', [\App\Controllers\InvoicesController::class, 'store'])
+//     ->get('/examples/generator', [GeneratorExampleController::class, 'index']);
 
 
 //running the route;

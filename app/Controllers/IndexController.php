@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\App;
+use App\Atrributes\Post;
+use App\Atrributes\Put;
+use App\Atrributes\Route;
 use App\Container;
 use App\Models\InvoiceModel;
 use App\Models\SignUpModel;
@@ -20,7 +23,9 @@ class IndexController
     public function __construct(private InvoiceServices $invoiceServices)
 {
 
-}    public function index(): View
+}  
+    #[Route('/')]
+  public function index(): View
     {
 
         //making sure my db connection has loaded by the env
@@ -111,5 +116,17 @@ class IndexController
 
 
         echo "</pre>";
+    }
+
+
+    //#[Routes('/', post)]
+    #[Post('/invoices/create')]
+    public function store(){
+
+    }
+
+    #[Put('/')]
+    public function update(){
+
     }
 }

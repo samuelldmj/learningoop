@@ -8,7 +8,12 @@ namespace App;
 
 
 // Import the custom exception for handling undefined routes
+
+use App\Atrributes\Route;
+use App\Controllers\GeneratorExampleController;
+use App\Controllers\IndexController;
 use App\Exceptions\RouteNotFoundException;
+use ReflectionAttribute;
 
 // Define the Router class
 class Router
@@ -17,6 +22,24 @@ class Router
     private array $routes = [];
 
     public function __construct(private Container $container){
+
+    }
+
+    public function registerRouteFromControllerAttributes(array $controllersArray){
+      
+        foreach($controllersArray as $controller){
+            $reflectionController = new \ReflectionClass($controller);
+
+            foreach($reflectionController->getMethods() as $method){
+                    $attributes = $method->getAttributes(Route::class, ReflectionAttribute::IS_INSTANCEOF);
+
+                    foreach($attributes as $attribute){
+                        $route = $attribute->newInstance(); 
+
+                        $this->register($route->method, $route->routePath, [$controller, $method->getName()]);
+                    }
+            }
+        }
 
     }
 
