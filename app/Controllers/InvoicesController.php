@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Enums\InvoiceStatus;
+use App\Models\InvoiceModel;
 use App\View;
 
 class InvoicesController
 {
     public function invoices(): View
     {
-        return  View::make('/invoices/invoice');
+        $invoices = (new InvoiceModel())->all(InvoiceStatus::FAILED);
+        return  View::make('/invoices/invoice', ["invoices" => $invoices]);
     }
 
     public function create(): View
