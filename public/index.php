@@ -253,7 +253,11 @@ use App\Config;
 use App\Container;
 use App\Controllers\GeneratorExampleController;
 use App\Controllers\IndexController;
+use App\Controllers\UserController;
 use App\Router;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 
 //C:\xampp\htdocs\learningoop\resources
 define('STORAGE_PATH', __DIR__ . "/../resources");
@@ -269,18 +273,24 @@ $dotenv->load();
 
 $container = new Container();
 
+$container->set('Symfony\Component\Mailer\MailerInterface', function($container) {
+    $transport = Transport::fromDsn('smtp://mailtrap.io:2525'); 
+    return new Mailer($transport);
+});
+
 $router = new Router($container);
 
 $router->registerRouteFromControllerAttributes(
     [
         IndexController::class,
-        GeneratorExampleController::class
+        GeneratorExampleController::class,
+        UserController::class
     ]
     );
 
-echo "<pre>";
-print_r($router->routes());
-echo "</pre>";
+// echo "<pre>";
+// print_r($router->routes());
+// echo "</pre>";
 
 // $router->get('/', [\App\Controllers\IndexController::class, 'index'])
 //     ->post('/upload', [\App\Controllers\IndexController::class, 'upload'])
