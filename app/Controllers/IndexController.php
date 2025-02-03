@@ -122,7 +122,7 @@ class IndexController
     //#[Routes('/', post)]
     #[Post('/invoices/create')]
     public function store(){
-        
+        return View::make('invoices/create');
     }
 
     #[Put('/')]
