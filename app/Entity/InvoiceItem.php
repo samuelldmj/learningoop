@@ -45,6 +45,7 @@ class InvoiceItem {
     
 public function setID($id){
     $this->id = $id;
+    return $this;
 }
 
 public function getID(){
@@ -53,6 +54,7 @@ public function getID(){
 
 public function setQuantity($quantity){
     $this->quantity = $quantity;
+    return $this;
 }
 
 public function getQuantity(){
@@ -62,6 +64,7 @@ public function getQuantity(){
 
 public function setInvoiceDescription($invoiceDescription){
     $this->invoiceDescription = $invoiceDescription;
+    return $this;
 }
 
 public function getInvoiceDescription(){
@@ -69,6 +72,7 @@ public function getInvoiceDescription(){
 }
 public function setUnitPrice($unitPrice){
     $this->unitPrice = $unitPrice;
+    return $this;
 }
 
 public function getUnitPrice(){
@@ -76,6 +80,7 @@ public function getUnitPrice(){
 }
 public function setInvoiceId($invoiceId){
     $this->invoiceId = $invoiceId;
+    return $this;
 }
 
 public function getInvoiceId(){

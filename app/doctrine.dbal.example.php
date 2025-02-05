@@ -3,16 +3,18 @@
 declare(strict_types=1);
 
 use App\Entity\Invoice;
+use App\Entity\InvoiceItem;
 use App\Enums\InvoiceStatus;
 use Dotenv\Dotenv;
+
+
 
 require_once  __DIR__ . "/../vendor/autoload.php";
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Schema\Column;
+
 
 //..doctrine configuration
 // $connectionParams = [
@@ -63,4 +65,43 @@ $invoice = (new Invoice())
 ->setInvoiceStatus(InvoiceStatus::PAID)
 ->setCreatedAt(new DateTime());
 
-var_dump($invoice);
+
+foreach( $items as [$description, $qty, $unit_price]){
+    $item = (new InvoiceItem)
+    ->setInvoiceDescription($description)
+    ->setUnitPrice($unit_price)
+    ->setQuantity($qty);
+
+    $invoice->addItem($item);
+}
+
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+
+// Database connection parameters
+$params = [
+    'dbname' => $_ENV["DB_DATABASE"],
+    'user' => $_ENV['DB_USER'],
+    'password' => '',
+    'host' => $_ENV['DB_HOST'],
+    'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql',
+];
+
+
+//create method and some class are deprecated
+// Set paths to your entities
+// $paths = [dirname(__DIR__) . '/Entity']; // Fix path concatenation
+// $isDevMode = true; // Set to false in production environment
+
+// // Create Doctrine configuration
+// $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+
+// // Create the DBAL Connection
+// $connection = DriverManager::getConnection($params);
+
+// // Create EntityManager using the connection and config
+// $entityManager = EntityManager::create($connection, $config);
+
+
+// var_dump($invoice);

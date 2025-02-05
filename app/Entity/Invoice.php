@@ -85,4 +85,8 @@ public function setID($id){
     }
 
 
+    public function addItem(InvoiceItem $item){
+        $this->items->add($item);
+        return $this;
+    }
 }
