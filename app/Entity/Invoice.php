@@ -36,7 +36,8 @@ class Invoice  {
     #[Column(name: 'created_at')]
     private \DateTime $createdAt;
 
-
+    #[Column('due_date')]
+    private \DateTime $dueDate;
     public function __construct()
 {
     $this->items = new  ArrayCollection();
