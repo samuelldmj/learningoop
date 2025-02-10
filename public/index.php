@@ -250,11 +250,13 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use App\App;
 use App\Config;
-use App\Container;
+
 use App\Controllers\GeneratorExampleController;
 use App\Controllers\IndexController;
+use App\Controllers\InvoicesController;
 use App\Controllers\UserController;
 use App\Router;
+use Illuminate\Container\Container;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
@@ -267,22 +269,28 @@ define('VIEWS_PATH', __DIR__ . "/../resources/views");
 
 // echo __DIR__;
 
-//making the .env work by putting it in the entry point of my app
+// //making the .env work by putting it in the entry point of my app
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 $container = new Container();
 
-$container->set('Symfony\Component\Mailer\MailerInterface', function($container) {
+$container->bind('Symfony\Component\Mailer\MailerInterface', function($container) {
     $transport = Transport::fromDsn('smtp://mailtrap.io:2525'); 
     return new Mailer($transport);
 });
+
+$container->bind(
+    \App\Services\Interface\PaymentGatewayServiceInterface::class,
+    \App\Services\PaymentGatewayService::class
+);
 
 $router = new Router($container);
 
 $router->registerRouteFromControllerAttributes(
     [
         IndexController::class,
+        InvoicesController::class,
         GeneratorExampleController::class,
         UserController::class
     ]
@@ -307,4 +315,4 @@ $router->registerRouteFromControllerAttributes(
     ['uri' => $_SERVER['REQUEST_URI'],
     'method' => $_SERVER['REQUEST_METHOD']],
     new Config($_ENV)
-))->run();
+))->boot()->run();

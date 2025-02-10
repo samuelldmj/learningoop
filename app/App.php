@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Events\Dispatcher;
+// use Illuminate\Container\Container;
+
 use App\Services\EmailService;
-use App\Services\Interface\PaymentGatewayServiceInterface;
-use App\Services\PaymentGatewayService;
-use App\Services\InvoiceServices;
-use App\Services\SalesTaxService;
-use App\Services\StripePayment;
-use PDO;
-use PDOException;
+use Illuminate\Container\Container;
 
 class App
 {
-    // Static property to hold the instance of the database connection
-    private static DB $db;
+
 
     // Static property to hold the container instance (dependency injection container)
 //    public static Container $container;
@@ -28,13 +25,29 @@ class App
      * @param array $request The request data (e.g., URI, method).
      * @param Config $config The configuration instance (includes DB settings).
      */
-    public function __construct(protected Container $container,
-     protected Router $router,
-      protected array $request, protected Config $config)
+    public function __construct(
+        protected Container $container,
+        protected Router $router,
+        protected array $request,
+        protected Config $config
+    ) {
+
+    }
+
+    public function initDb(array $config)
     {
-        // Initialize the DB connection using the configuration values
-        static::$db = new DB($config->db ?? null);
-        $this->container->set(PaymentGatewayServiceInterface::class, StripePayment::class);
+        $capsule = new Capsule;
+
+        $capsule->addConnection($config);
+
+        // Set the event dispatcher used by Eloquent models... (optional)
+        $capsule->setEventDispatcher(new Dispatcher($this->container));
+
+        // Make this Capsule instance available globally via static methods... (optional)
+        $capsule->setAsGlobal();
+
+        // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+        $capsule->bootEloquent();
 
     }
 
@@ -52,13 +65,16 @@ class App
         }
     }
 
-    /**
-     * Returns the DB instance.
-     * 
-     * @return DB The database instance.
-     */
-    public static function db(): DB
+
+    public function boot()
     {
-        return static::$db;
+
+        $this->config = new Config($_ENV);
+
+        $this->initDb($this->config->db);
+        return $this;
+
     }
+
+
 }

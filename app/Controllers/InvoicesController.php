@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Atrributes\Route;
 use App\Enums\InvoiceStatus;
-use App\Models\InvoiceModel;
+use App\Models\Invoice;
 use App\View;
 
 class InvoicesController
 {
+    #[Route('/invoices')]
     public function invoices(): View
     {
-        $invoices = (new InvoiceModel())->all(InvoiceStatus::FAILED);
+        $invoices =  Invoice::query()->where('invoice_status',InvoiceStatus::FAILED)->get()->toArray();
         return  View::make('/invoices/invoice', ["invoices" => $invoices]);
     }
 

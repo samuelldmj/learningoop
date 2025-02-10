@@ -13,6 +13,7 @@ use App\Atrributes\Route;
 use App\Controllers\GeneratorExampleController;
 use App\Controllers\IndexController;
 use App\Exceptions\RouteNotFoundException;
+use Illuminate\Container\Container;
 use ReflectionAttribute;
 
 // Define the Router class
