@@ -9,8 +9,7 @@ use Attribute;
 #[Attribute]
 class Route implements RouterInterface {
     public function __construct(public string $routePath, public HttpMethod $method = HttpMethod::GET)
-    {
-        
+    { 
 
     }
 }

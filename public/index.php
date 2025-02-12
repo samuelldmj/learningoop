@@ -250,7 +250,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use App\App;
 use App\Config;
-
+use App\Controllers\CurlController;
 use App\Controllers\GeneratorExampleController;
 use App\Controllers\IndexController;
 use App\Controllers\InvoicesController;
@@ -292,7 +292,8 @@ $router->registerRouteFromControllerAttributes(
         IndexController::class,
         InvoicesController::class,
         GeneratorExampleController::class,
-        UserController::class
+        UserController::class,
+        CurlController::class
     ]
     );
 
