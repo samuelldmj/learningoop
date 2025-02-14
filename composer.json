@@ -9,7 +9,8 @@
     "doctrine/migrations": "^3.8",
     "doctrine/dbal": "^4.2",
     "illuminate/database": "^11.41",
-    "illuminate/events": "^11.41"
+    "illuminate/events": "^11.41",
+    "guzzlehttp/guzzle": "^7.9"
   },
   "autoload": {
     "psr-4": {

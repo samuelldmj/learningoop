@@ -23,6 +23,10 @@ class Config
                 'charset' => 'utf8',
                 'collation' => 'utf8_unicode_ci',
                 'prefix' => '',
+            ],
+            'apiKeys' => [
+                'emailable' => $env['EMAILABLE_API_KEY'] ?? '',
+                'abstract' => $env['ABSTRACT_EMAIL_API_KEY'] ?? ''
             ]
         ];
     }

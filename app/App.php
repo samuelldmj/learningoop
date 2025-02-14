@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Services\AbstractApi\EmailValidationService;
+use App\Services\Emailable\EmailValidationService as EmailableEmailValidationService;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
 // use Illuminate\Container\Container;
 
 use App\Services\EmailService;
+use App\Services\Interface\EmailValidationInterface;
 use Illuminate\Container\Container;
 
 class App
 {
-
-
-    // Static property to hold the container instance (dependency injection container)
-//    public static Container $container;
 
     /**
      * App constructor initializes the container and service bindings.
@@ -46,6 +45,9 @@ class App
         // Make this Capsule instance available globally via static methods... (optional)
         $capsule->setAsGlobal();
 
+      
+        
+
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
         $capsule->bootEloquent();
 
@@ -72,6 +74,12 @@ class App
         $this->config = new Config($_ENV);
 
         $this->initDb($this->config->db);
+        $this->container->bind(
+            EmailValidationInterface::class,
+            // fn() => new EmailableEmailValidationService($this->config->apiKeys['emailable'])
+            fn() => new EmailValidationService($this->config->apiKeys['abstract'])
+        );
+        
         return $this;
 
     }

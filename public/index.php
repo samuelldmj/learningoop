@@ -256,6 +256,7 @@ use App\Controllers\IndexController;
 use App\Controllers\InvoicesController;
 use App\Controllers\UserController;
 use App\Router;
+use App\Services\EmailValidationService;
 use Illuminate\Container\Container;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
@@ -284,6 +285,8 @@ $container->bind(
     \App\Services\Interface\PaymentGatewayServiceInterface::class,
     \App\Services\PaymentGatewayService::class
 );
+
+
 
 $router = new Router($container);
 

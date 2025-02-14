@@ -7,53 +7,26 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 // Import the Route attribute class
-
 use App\Atrributes\Route as AtrributesRoute;
+use App\Services\EmailValidationService;
+use App\Services\Interface\EmailValidationInterface;
 
 class CurlController
 {
+
+    public function __construct(Private EmailValidationInterface $emailValidationService){
+
+    }
     // Define a route for this method
     #[AtrributesRoute('/curl')]
     public function index()
     {
-        // Initialize a new cURL session
-        $handle = curl_init();
+        $email = 'samuelldmj5@gmail.com';
+        $result = $this->emailValidationService->verify($email);
 
-        $apiKey = $_ENV['EMAILABLE_API_KEY'];
-        $email = "samuelldmj5@gmail";
-
-        $params = [
-            "api_key" => $apiKey,
-            "email" => $email
-        ];
-
-        // Set the URL to fetch
-        $url = "https://api.emailable.com/v1/verify?". http_build_query($params);
-
-        // Set the URL option for the cURL session
-        curl_setopt($handle, CURLOPT_URL, $url);
-
-        // Ensure the content is returned as a string instead of output directly
-        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-
-        // Execute the cURL session and get the content
-        $content = curl_exec($handle);
-
-        if ($content !== false) {
-            $data = json_decode($content, true);
-
-            // Start formatting the output for better readability
-            echo "<pre>";
-
-            // Print detailed information about the last transfer including HTTP status, content length, etc.
-            // print_r(curl_getinfo($data));
-            print_r($data);
-            echo "</pre>";
-        }
-
-
-
-        // Close the cURL session to free up resources
-        curl_close($handle);
+        echo "<pre>";
+            print_r($result);
+        echo "</pre>";
+        
     }
 }
