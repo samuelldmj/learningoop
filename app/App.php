@@ -45,9 +45,6 @@ class App
         // Make this Capsule instance available globally via static methods... (optional)
         $capsule->setAsGlobal();
 
-      
-        
-
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
         $capsule->bootEloquent();
 
@@ -76,8 +73,8 @@ class App
         $this->initDb($this->config->db);
         $this->container->bind(
             EmailValidationInterface::class,
-            // fn() => new EmailableEmailValidationService($this->config->apiKeys['emailable'])
-            fn() => new EmailValidationService($this->config->apiKeys['abstract'])
+             fn() => new EmailableEmailValidationService($this->config->apiKeys['emailable'])
+            // fn() => new EmailValidationService($this->config->apiKeys['abstract'])
         );
         
         return $this;
