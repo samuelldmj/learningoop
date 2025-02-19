@@ -1,9 +1,3 @@
-<?php
-
-echo 'Invoices Receipt';
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,21 +16,20 @@ echo 'Invoices Receipt';
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($invoices)): ?>
-                <?php foreach($invoices as $invoice): ?>
+            {% if invoices is not empty %}
+                {% for invoice in invoices %}
                     <tr>
-                        <td><?= htmlspecialchars($invoice['invoice_number']) ?></td>
-                        <td><?= number_format($invoice['amount'], 2) ?></td>
-                        <td><?= htmlspecialchars($invoice['invoice_status']) ?></td>
+                        <td>{{ invoice.invoice_number|e }}</td>
+                        <td>${{ invoice.amount|number_format(2) }}</td>
+                        <td>{{ invoice.invoice_status|e }}</td>
                     </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+                {% endfor %}
+            {% else %}
                 <tr>
                     <td colspan="3">No invoices found.</td>
                 </tr>
-            <?php endif; ?>
+            {% endif %}
         </tbody>
     </table>
 </body>
 </html>
-

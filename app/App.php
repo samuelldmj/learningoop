@@ -13,6 +13,8 @@ use Illuminate\Events\Dispatcher;
 use App\Services\EmailService;
 use App\Services\Interface\EmailValidationInterface;
 use Illuminate\Container\Container;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class App
 {
@@ -71,12 +73,21 @@ class App
         $this->config = new Config($_ENV);
 
         $this->initDb($this->config->db);
+
+        $loader = new FilesystemLoader(VIEWS_PATH);
+        $twig = new Environment($loader, [
+            'cache' => STORAGE_PATH . '/cache',
+            'auto_reload' => true
+        ]);
+
         $this->container->bind(
             EmailValidationInterface::class,
-             fn() => new EmailableEmailValidationService($this->config->apiKeys['emailable'])
+            fn() => new EmailableEmailValidationService($this->config->apiKeys['emailable'])
             // fn() => new EmailValidationService($this->config->apiKeys['abstract'])
         );
-        
+
+        $this->container->singleton(Environment::class, fn() => $twig);
+
         return $this;
 
     }

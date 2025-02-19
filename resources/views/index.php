@@ -11,18 +11,17 @@
     Homepage
     <hr>
 
+    <?php //phpinfo(); 
+    //echo exit;
+    ?>
+    
+
     <form action="/upload" method="post" enctype="multipart/form-data">
         <input type="file" name="image">
         <button type="submit" name="submit">UPLOAD</button>
     </form>
 
 
-    <?php if (!empty($invoice)) : ?>
-        Invoice ID: <?php echo $invoice['id']; ?> <br>
-        Invoice Amount: <?php echo  $invoice['amount']; ?> <br>
-        User: <?php echo $invoice['full_name'] ?> <br>
-
-    <?php endif; ?>
 </body>
 
 </html>

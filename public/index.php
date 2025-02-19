@@ -262,10 +262,10 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 
-//C:\xampp\htdocs\learningoop\resources
+//C:\laragon\www\learningoop\resources
 define('STORAGE_PATH', __DIR__ . "/../resources");
 
-//C:\xampp\htdocs\learningoop\resources\views
+//C:\laragon\www\learningoop\resources\views
 define('VIEWS_PATH', __DIR__ . "/../resources/views");
 
 // echo __DIR__;

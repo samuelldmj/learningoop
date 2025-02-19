@@ -8,19 +8,33 @@ use App\Atrributes\Route;
 use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
 use App\View;
+use Twig\Environment as Twig;
 
 class InvoicesController
 {
-    #[Route('/invoices')]
-    public function invoices(): View
+
+    public function __construct(private Twig $twig)
     {
-        $invoices =  Invoice::query()->where('invoice_status',InvoiceStatus::FAILED)->get()->toArray();
-        return  View::make('/invoices/invoice', ["invoices" => $invoices]);
+
+    }
+    // #[Route('/invoices')]
+    // public function invoices(): View
+    // {
+    //     $invoices = Invoice::query()->where('invoice_status', InvoiceStatus::PAID)->get()->toArray();
+    //     // var_dump($invoices); // Debugging statement
+    //     return View::make('/invoices/invoice', ["invoices" => $invoices]);
+    // }
+
+    #[Route('/invoices')]
+    public function invoices(): string
+    {
+        $invoices = Invoice::query()->where('invoice_status', InvoiceStatus::PAID)->get()->toArray();
+        return $this->twig->render('/invoices/invoice.twig', ["invoices" => $invoices]);
     }
 
     public function create(): View
     {
-        return  View::make('/invoices/create');
+        return View::make('/invoices/create');
     }
 
     public function store()
@@ -39,7 +53,6 @@ class InvoicesController
         // // print_r($amount);
 
         // var_dump($amount);
-
 
     }
 }

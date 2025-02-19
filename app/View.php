@@ -19,19 +19,26 @@ class View
     }
 
     public function render()
-    {
-        //VIEWS_PATH => C:\xampp\htdocs\learningoop\resources\views\index.php
-        $viewpath = VIEWS_PATH . '/' . $this->view . '.php';
+{
+    //VIEWS_PATH => C:\xampp\htdocs\learningoop\resources\views\index.php
+    $viewpath = VIEWS_PATH . '/' . $this->view . '.php';
 
-        if (!file_exists($viewpath)) {
-            throw new ViewNotFoundException();
-        }
-        ob_start();
-
-        include $viewpath;
-
-        return ob_get_clean();
+    if (!file_exists($viewpath)) {
+        throw new ViewNotFoundException();
     }
+
+    // Extract the params array into variables
+    extract($this->params);
+
+    // Start output buffering
+    ob_start();
+
+    // Include the view file
+    include $viewpath;
+
+    // Return the buffered content
+    return ob_get_clean();
+}
 
     public function __toString()
     {
