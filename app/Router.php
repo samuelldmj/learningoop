@@ -78,6 +78,12 @@ class Router
     {
         // Strip query parameters from the URI to match route definitions
         $route = explode('?', $requestUri)[0];
+
+        if ($route === '/favicon.ico') {
+            header('HTTP/1.1 204 No Content'); // No favicon, return empty response
+            exit;
+        }
+
         // Find the corresponding action for the given route and method
         $action = $this->routes[$requestMethod][$route] ?? null;
 

@@ -15,7 +15,7 @@ use Twig\Template;
 use Twig\TemplateWrapper;
 
 /* /invoices/invoice.twig */
-class __TwigTemplate_e2ba3b87845224f2b521298d87a601aa extends Template
+class __TwigTemplate_a40de6e67d4c6d9396eb808fd63d36f0 extends Template
 {
     private Source $source;
     /**
@@ -61,27 +61,32 @@ class __TwigTemplate_e2ba3b87845224f2b521298d87a601aa extends Template
         // line 19
         if ( !Twig\Extension\CoreExtension::testEmpty(($context["invoices"] ?? null))) {
             // line 20
-            yield "            ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["invoices"] ?? null), "html", null, true);
-            yield "
-                ";
+            yield "            <pre>
+            ";
             // line 21
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\DebugExtension::dump($this->env, $context, ...[($context["invoices"] ?? null)]), "html", null, true);
+            yield "
+            </pre>
+
+            xdebug_info()
+                ";
+            // line 25
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable(($context["invoices"] ?? null));
             foreach ($context['_seq'] as $context["_key"] => $context["invoice"]) {
-                // line 22
+                // line 26
                 yield "                    <tr>
                         <td>";
-                // line 23
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["invoice"], "invoice_number", [], "any", false, false, false, 23));
+                // line 27
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["invoice"], "invoice_number", [], "any", false, false, false, 27));
                 yield "</td>
                         <td>\$";
-                // line 24
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, $context["invoice"], "amount", [], "any", false, false, false, 24), 2), "html", null, true);
+                // line 28
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, $context["invoice"], "amount", [], "any", false, false, false, 28), 2), "html", null, true);
                 yield "</td>
                         <td>";
-                // line 25
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["invoice"], "invoice_status", [], "any", false, false, false, 25));
+                // line 29
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["invoice"], "invoice_status", [], "any", false, false, false, 29));
                 yield "</td>
                     </tr>
                 ";
@@ -89,16 +94,16 @@ class __TwigTemplate_e2ba3b87845224f2b521298d87a601aa extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['invoice'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 28
+            // line 32
             yield "            ";
         } else {
-            // line 29
+            // line 33
             yield "                <tr>
                     <td colspan=\"3\">No invoices found.</td>
                 </tr>
             ";
         }
-        // line 33
+        // line 37
         yield "        </tbody>
     </table>
 </body>
@@ -128,11 +133,51 @@ class __TwigTemplate_e2ba3b87845224f2b521298d87a601aa extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  102 => 33,  96 => 29,  93 => 28,  84 => 25,  80 => 24,  76 => 23,  73 => 22,  69 => 21,  64 => 20,  62 => 19,  42 => 1,);
+        return array (  107 => 37,  101 => 33,  98 => 32,  89 => 29,  85 => 28,  81 => 27,  78 => 26,  74 => 25,  67 => 21,  64 => 20,  62 => 19,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("", "/invoices/invoice.twig", "C:\\laragon\\www\\learningoop\\resources\\views\\invoices\\invoice.twig");
+        return new Source("<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Invoices</title>
+</head>
+<body>
+    <h1>Invoices Receipt</h1>
+    <table class=\"table\">
+        <thead>
+            <tr>
+                <th scope=\"col\">Invoice-Number #</th>
+                <th scope=\"col\">Amount</th>
+                <th scope=\"col\">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if invoices is not empty %}
+            <pre>
+            {{ dump(invoices) }}
+            </pre>
+
+            xdebug_info()
+                {% for invoice in invoices %}
+                    <tr>
+                        <td>{{ invoice.invoice_number|e }}</td>
+                        <td>\${{ invoice.amount|number_format(2) }}</td>
+                        <td>{{ invoice.invoice_status|e }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan=\"3\">No invoices found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
+", "/invoices/invoice.twig", "C:\\laragon\\www\\learningoop\\resources\\views\\invoices\\invoice.twig");
     }
 }

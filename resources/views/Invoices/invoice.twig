@@ -17,6 +17,9 @@
         </thead>
         <tbody>
             {% if invoices is not empty %}
+            <pre>
+            {{ dump(invoices) }}
+            </pre>
                 {% for invoice in invoices %}
                     <tr>
                         <td>{{ invoice.invoice_number|e }}</td>

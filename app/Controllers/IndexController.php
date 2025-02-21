@@ -11,7 +11,7 @@ use App\Atrributes\Route;
 use App\Container;
 use App\Services\InvoiceServices;
 use App\View;
-
+use RuntimeException;
 
 class IndexController
 {
@@ -90,7 +90,7 @@ class IndexController
         // App::$container->get(InvoiceServices::class)->process([], 20);
         $this->invoiceServices->process([], 20);
         // (new Container())->get(InvoiceServices::class)->process([], 20);
-
+        // throw new RuntimeException('Test');
         return View::make('index');
     }
 

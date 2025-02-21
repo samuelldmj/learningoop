@@ -13,6 +13,8 @@
 
     <?php //phpinfo(); 
     //echo exit;
+
+    // xdebug_info();
     ?>
     
 

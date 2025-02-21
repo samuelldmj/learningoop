@@ -77,8 +77,11 @@ class App
         $loader = new FilesystemLoader(VIEWS_PATH);
         $twig = new Environment($loader, [
             'cache' => STORAGE_PATH . '/cache',
-            'auto_reload' => true
+            'auto_reload' => true,
+            "debug" => true
         ]);
+
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
 
         $this->container->bind(
             EmailValidationInterface::class,

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types= 1);
 
 namespace App\Controllers;
 
@@ -17,20 +17,20 @@ class InvoicesController
     {
 
     }
-    // #[Route('/invoices')]
-    // public function invoices(): View
-    // {
-    //     $invoices = Invoice::query()->where('invoice_status', InvoiceStatus::PAID)->get()->toArray();
-    //     // var_dump($invoices); // Debugging statement
-    //     return View::make('/invoices/invoice', ["invoices" => $invoices]);
-    // }
-
     #[Route('/invoices')]
-    public function invoices(): string
+    public function invoices(): View
     {
         $invoices = Invoice::query()->where('invoice_status', InvoiceStatus::PAID)->get()->toArray();
-        return $this->twig->render('/invoices/invoice.twig', ["invoices" => $invoices]);
+        var_dump($invoices); // Debugging statement
+        return View::make('/invoices/invoice', ["invoices" => $invoices]);
     }
+
+    // #[Route('/invoices')]
+    // public function invoices(): string
+    // {
+    //     $invoices = Invoice::query()->where('invoice_status', InvoiceStatus::PAID)->get()->toArray();
+    //     return $this->twig->render('/invoices/invoice.twig', ["invoices" => $invoices]);
+    // }
 
     public function create(): View
     {
