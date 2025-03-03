@@ -18,6 +18,8 @@ $config = new PhpFile('migrations.php'); // Or use one of the Doctrine\Migration
 
 $params = [
     'dbname' => $_ENV["DB_DATABASE"],
+    // 'user' => $_ENV['DB_USERNAME'],
+    //'password' => $_ENV['DB_PASSWORD'],
     'user' => $_ENV['DB_USER'],
     'password' => '',
     'host' => $_ENV['DB_HOST'],
